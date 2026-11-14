@@ -1,6 +1,8 @@
 #include "methods.h"
+#include <wchar.h>
 
-void string_append(String self, String other) {
-  string_append_copy(self, other);
-  other->free(other);
+void string_append(String self, String *other) {
+  string_append_copy(self, *other);
+  (*other)->free(other);
+  *other = NULL;
 }

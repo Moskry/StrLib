@@ -13,14 +13,14 @@ typedef struct string {
   long (*size)(const struct string *);
   int (*clear)(struct string *);
   // Invalidates both Strings
-  struct string *(*concat)(struct string *, struct string *);
+  struct string *(*concat)(struct string **, struct string **);
   // Invalidates second String
-  void (*append)(struct string *, struct string *);
+  void (*append)(struct string *, struct string **);
   void (*append_copy)(struct string *, const struct string *const);
   void (*append_str)(struct string *, const str);
   str (*copy_to_str)(const struct string *const);
   // Invalidates String
-  str (*to_str)(struct string *);
+  str (*to_str)(struct string **);
   // Cut off String at random value
   void (*truncate)(struct string *const, long);
   // Free unused memory
@@ -31,7 +31,7 @@ typedef struct string {
   str (*slice)(const struct string *, const unsigned long, const unsigned long);
   void (*insert_at)(struct string *, const str, const unsigned long);
   void (*delete_at)(struct string *, const unsigned long, unsigned long);
-  void (*free)(struct string *);
+  void (*free)(struct string **);
 } *String;
 
 String new_string(const str text);

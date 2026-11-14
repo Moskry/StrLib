@@ -17,7 +17,7 @@ static int test_copy_to_str(String string) {
 }
 
 static int test_to_str(String string) {
-  str test = string->to_str(string);
+  str test = string->to_str(&string);
   if (strcmp(test, "Dragan") == 0) {
     free(test);
     return EXIT_SUCCESS;

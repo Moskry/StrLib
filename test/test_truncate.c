@@ -38,15 +38,15 @@ int main(void) {
   if (!test_truncate_string_by_length(a))
     printf("test_truncate_string_by_length passed!\n");
   else {
-    a->free(a);
+    a->free(&a);
     return EXIT_FAILURE;
   }
   if (!test_truncate_string(a, 5, "SOMET"))
     printf("test_truncate passed!\n");
   else {
-    a->free(a);
+    a->free(&a);
     return EXIT_FAILURE;
   }
-  a->free(a);
+  a->free(&a);
   return EXIT_SUCCESS;
 }

@@ -2,11 +2,13 @@
 #include "types.h"
 #include <stdlib.h>
 
-str to_str(String self) {
-  if (self == NULL || self->_ == NULL || self->_->text == NULL)
+str to_str(String *self) {
+  if (*self == NULL || (*self)->_ == NULL || (*self)->_->text == NULL)
     return NULL;
-  str final = self->_->text;
-  free(self->_);
-  free(self);
+  str final = (*self)->_->text;
+  free((*self)->_);
+  free(*self);
+  *self = NULL;
+
   return final;
 }

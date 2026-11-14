@@ -10,12 +10,13 @@ int main(void) {
   if (strcmp(slicea, "THING") == 0 && strcmp(sliceb, "ME") == 0) {
     free(slicea);
     free(sliceb);
-    free(a);
+    a->free(&a);
     return EXIT_SUCCESS;
   }
-  printf("Error\nexpected: THING, got: %s\nexpected: ME, got: %s\n", slicea, sliceb);
+  printf("Error\nexpected: THING, got: %s\nexpected: ME, got: %s\n", slicea,
+         sliceb);
   free(slicea);
   free(sliceb);
-  free(a);
+  a->free(&a);
   return EXIT_FAILURE;
 }

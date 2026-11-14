@@ -5,20 +5,20 @@
 
 static int test_concat(String a, String b, const char *expected) {
 
-  String c = a->concat(a, b);
+  String c = a->concat(&a, &b);
   str ctxt = c->copy_to_str(c);
   if (strcmp(ctxt, expected) == 0) {
     free(ctxt);
-    c->free(c);
+    c->free(&c);
     return EXIT_SUCCESS;
   }
   free(ctxt);
-  c->free(c);
+  c->free(&c);
   return EXIT_FAILURE;
 }
 
 static int test_append(String a, String b, const char *expected) {
-  a->append(a, b);
+  a->append(a, &b);
   // b is now dangling
   str atxt = a->copy_to_str(a);
   if (strcmp(atxt, expected) == 0) {
@@ -77,6 +77,11 @@ int main(void) {
     printf("test_append failed!");
     return err;
   }
+  // Empty append
+  a->assign(a, "");
+  b = new_string(NULL);
+  err = test_append(a, b, "");
+
   a->assign(a, "Hello");
   b = new_string(" World!");
 
@@ -88,7 +93,7 @@ int main(void) {
 
   a->assign(a, "Hello");
   b->assign(b, " World!");
-  str bstr = b->to_str(b);
+  str bstr = b->to_str(&b);
   b = NULL;
 
   err = test_append_str(a, bstr, "Hello World!");
@@ -97,6 +102,6 @@ int main(void) {
     return err;
   }
 
-  a->free(a);
+  a->free(&a);
   return EXIT_SUCCESS;
 }

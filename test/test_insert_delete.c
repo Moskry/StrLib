@@ -34,6 +34,6 @@ int main(void)
   if (err == EXIT_SUCCESS) printf("test_delete passed!\n");
   err = test_delete(a, 6, 50, "BIMBIM");
   if (err == EXIT_SUCCESS) printf("test_delete passed with overflow\n");
-  a->free(a);
+  a->free(&a);
   return err;
 }

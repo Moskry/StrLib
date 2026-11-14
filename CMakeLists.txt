@@ -21,6 +21,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${FullOutputDir}")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${FullOutputDir}")
 
 include(CTest)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(Criterion REQUIRED IMPORTED_TARGET criterion)
+
 file(GLOB_RECURSE SRCS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/src/*.c")
 file(GLOB_RECURSE HDRS CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/hdr/*.h")
 file(GLOB_RECURSE test_paths CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/test/*.c")
@@ -46,6 +50,8 @@ foreach(source IN LISTS test_paths)
     string(REGEX REPLACE "\\.c$" "" tests "${tests}")
 
     add_executable("${tests}" "${source}")
+    target_link_libraries(${tests} PRIVATE PkgConfig::Criterion)
+
     target_include_directories("${tests}" PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/interfaces")
     set_target_properties("${tests}" PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/test-bin")
     target_link_libraries("${tests}" PRIVATE ${PROJECT_NAME})

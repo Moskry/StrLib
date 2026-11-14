@@ -8,8 +8,8 @@ int main(void) {
   if (name == NULL)
     return EXIT_FAILURE;
   else {
-    namer->free(namer);
-    name->free(name);
+    namer->free(&namer);
+    name->free(&name);
     return EXIT_SUCCESS;
   }
 }

@@ -50,6 +50,6 @@ int main(void) {
   a->assign(a, "Smile");
   if (test_pop_assign(a, "Whine"))
     printf("test_pop_assign passed!\n");
-  a->free(a);
+  a->free(&a);
   return EXIT_SUCCESS;
 }
